@@ -1,0 +1,30 @@
+ Puedes implementar un mecanismo para eliminar archivos antiguos o innecesarios de la carpeta media para evitar que se llene con el tiempo.
+ Si vas a permitir a los usuarios especificar el nombre de la cuenta de Instagram, debes implementar validaciones para evitar la descarga de contenido malicioso.
+
+
+
+InstagramAccount: Guarda el nombre de usuario, la cantidad de seguidores (followers) y personas a las que sigue (followees).
+InstagramPost: Almacena cada post, referenciando la cuenta mediante una relación ForeignKey. Se guardan la URL del post, la fecha, y el caption (que puede estar vacío).
+
+
+
+
+
+guardo el promt:
+El cliente esta muy satisfecho con las actulizaciones, me dice ahora esto 
+Actualización Inteligente de Publicaciones:
+Podrías implementar una lógica que verifique si las publicaciones ya están en la base de datos antes de intentar descargarlas nuevamente. De esta manera, solo descargarías y almacenarías posts nuevos o actualizados.
+Tambien me dice que  planea actualizar los datos de las cuentas de Instagram periódicamente, podrías implementar tareas asíncronas con Celery o cron jobs para descargar nuevas publicaciones automáticamente. Siempre manteniendo un limite de 10 post  o publicaciones por cada cuenta, teniendo en cuenta claro que aveses en una misma publicacion hay por ejemplo mas de una foto, las cuales entrarias por supuesto en el mismo post
+
+
+
+
+
+
+
+from django.shortcuts import render
+from .models import InstagramPost
+
+def news_feed(request, account):
+    posts = InstagramPost.objects.filter(account__username=account).order_by('-date')
+    return render(request, 'instagram_posts/news_feed.html', {'posts': posts})

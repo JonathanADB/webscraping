@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Instagram News Feed</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Instagram News Feed</h1>
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <img src="{{ post.photo.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.account.username }}</h5>
+                            <p class="card-text">{{ post.caption }}</p>
+                            <p class="card-text"><small class="text-muted">{{ post.date }}</small></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
